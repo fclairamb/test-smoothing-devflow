@@ -72,18 +72,12 @@ workflows:
       - build_cpp
       - build_python
       - build_node
-  # We generate some output checks
-  outputs_check:
-    jobs:
       - outputs_check:
           requires:
             - build_go
             - build_cpp
             - build_python
             - build_node
-# We only perform the final step if there's a manual approval
-  final_step:
-    jobs:
       - human_validation:
           type: approval
           requires:
