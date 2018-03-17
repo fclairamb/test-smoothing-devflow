@@ -54,9 +54,9 @@ jobs:
         - image: alpine
       steps:
         - checkout
+        - run: apk update && apk add ca-certificates
         - attach_workspace:
             at: /workspace
-        - run: apk update && apk add ca-certificates
         - run: .circleci/outputs_check.sh
   # final step
   final:
