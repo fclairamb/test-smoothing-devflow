@@ -2,9 +2,10 @@
 
 for f in /workspace/results/*.txt
 do
-    content=$(cat $f)
-    if [ "$content" != "hello world" ]; then
-        echo "File $f is incorrect"
+    expected="hello world"
+    actual=$(cat $f)
+    if [ "$actual" != "$expected" ]; then
+        echo "File $f is incorrect: \"$actual\"" != \"$expected\""
         exit 1
     fi
 done
