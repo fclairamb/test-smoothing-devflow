@@ -84,6 +84,8 @@ workflows:
             - build_cpp
             - build_python
             - build_node
+      - store_artifacts:
+          path: /workspace/results
       - human_validation:
           type: approval
           requires:
