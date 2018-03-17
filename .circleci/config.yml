@@ -77,12 +77,14 @@ workflows:
             # - build_cpp
             # - build_python
             # - build_node
+  # We ask for approval
   human_validation:
     type: approval
     requires:
         - outputs_check
+  # We do the final step: Nothing
   final_step:
     jobs:
       - final:
-    requires:
-      - human_validation
+        - requires:
+            - human_validation
