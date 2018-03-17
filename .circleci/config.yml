@@ -39,7 +39,7 @@ jobs:
   # Running in node
   build_node:
     docker:
-      - image: node:alpine
+      - image: node
     steps:
       - checkout
       - run: mkdir -p /workspace/results
