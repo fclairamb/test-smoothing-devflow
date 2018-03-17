@@ -60,6 +60,7 @@ jobs:
     steps:
       - run: echo "Hello world !"
 workflows:
+  version: 2
   # We perform some builds
   build:
     jobs:
