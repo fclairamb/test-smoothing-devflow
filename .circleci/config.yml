@@ -72,20 +72,19 @@ workflows:
   outputs_check:
     jobs:
       - outputs_check:
-          - requires:
+          requires:
             - build # Let's test this
             # - build_go
             # - build_cpp
             # - build_python
             # - build_node
-  # We ask for approval
-  human_validation:
-    type: approval
-    requires:
-        - outputs_check
-  # We do the final step: Nothing
+# We only perform the final step if there's a manual approval
   final_step:
     jobs:
+      - human_validation:
+          type: approval
+          requires:
+            - outputs_check
       - final:
-        - requires:
+          requires:
             - human_validation
