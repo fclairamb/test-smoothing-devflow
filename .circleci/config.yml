@@ -77,11 +77,10 @@ workflows:
     jobs:
       - outputs_check:
           requires:
-            - build # Let's test this
-            # - build_go
-            # - build_cpp
-            # - build_python
-            # - build_node
+            - build_go
+            - build_cpp
+            - build_python
+            - build_node
 # We only perform the final step if there's a manual approval
   final_step:
     jobs:
