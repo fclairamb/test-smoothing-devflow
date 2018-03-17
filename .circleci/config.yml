@@ -19,9 +19,9 @@ jobs:
       - checkout
       - run: cd cpp && cmake . && make && ./hello_cpp >/workspace/results/cpp.txt
       - persist_to_workspace:
-        root: /workspace
-        paths:
-          - results
+          root: /workspace
+          paths:
+            - results
   # Running in python
   build_python:
     docker:
@@ -30,9 +30,9 @@ jobs:
       - checkout
       - run: cd python && ./main.py > /workspace/results/python.txt
       - persist_to_workspace:
-        root: /workspace
-        paths:
-          - results
+          root: /workspace
+          paths:
+            - results
   # Running in node
   build_node:
     docker:
@@ -41,9 +41,9 @@ jobs:
       - checkout
       - run: cd node && ./main.js >/workspace/results/node.txt
       - persist_to_workspace:
-        root: /workspace
-        paths:
-          - results
+          root: /workspace
+          paths:
+            - results
   # We check all the outputs
   outputs_check:
       docker:
