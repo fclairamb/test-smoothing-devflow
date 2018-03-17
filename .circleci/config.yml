@@ -6,6 +6,7 @@ jobs:
       - image: golang:alpine
     steps:
       - checkout
+      - run: mkdir -p /workspace/results
       - run: cd go && go build -o hello_go . && ./hello_go >/workspace/results/go.txt
       - persist_to_workspace:
           root: /workspace
@@ -17,6 +18,7 @@ jobs:
       - image: frebib/alpine-cmake
     steps:
       - checkout
+      - run: mkdir -p /workspace/results
       - run: cd cpp && cmake . && make && ./hello_cpp >/workspace/results/cpp.txt
       - persist_to_workspace:
           root: /workspace
@@ -28,6 +30,7 @@ jobs:
       - image: python:alpine
     steps:
       - checkout
+      - run: mkdir -p /workspace/results
       - run: cd python && ./main.py > /workspace/results/python.txt
       - persist_to_workspace:
           root: /workspace
@@ -39,6 +42,7 @@ jobs:
       - image: node:alpine
     steps:
       - checkout
+      - run: mkdir -p /workspace/results
       - run: cd node && ./main.js >/workspace/results/node.txt
       - persist_to_workspace:
           root: /workspace
