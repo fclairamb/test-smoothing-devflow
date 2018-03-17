@@ -1,0 +1,88 @@
+version: 2
+jobs:
+  # Building & Running in Go
+  build_go:
+    docker:
+      - image: golang:alpine
+    steps:
+      - checkout
+      - run: cd go && go build -o hello_go . && ./hello_go >/workspace/results/go.txt
+      - persist_to_workspace:
+        root: /workspace
+        paths:
+          - results
+  # Building & Running in C++
+  build_cpp:
+    docker:
+      - image: frebib/alpine-cmake
+    steps:
+      - checkout
+      - run: cd cpp && cmake . && make && ./hello_cpp >/workspace/results/cpp.txt
+      - persist_to_workspace:
+        root: /workspace
+        paths:
+          - results
+  # Running in python
+  build_python:
+    docker:
+      - image: python:alpine
+    steps:
+      - checkout
+      - run: cd python && ./main.py > /workspace/results/python.txt
+      - persist_to_workspace:
+        root: /workspace
+        paths:
+          - results
+  # Running in node
+  build_node:
+    docker:
+      - image: node:alpine
+    steps:
+      - checkout
+      - run: cd node && ./main.js >/workspace/results/node.txt
+      - persist_to_workspace:
+        root: /workspace
+        paths:
+          - results
+  # We check all the outputs
+  outputs_check:
+      docker:
+        - image: alpine
+      steps:
+        - checkout
+        - attach_workspace:
+            at: /workspace
+        - run: .circleci/outputs_check.sh
+  # final step
+  final:
+    docker:
+      - image: alpine
+    steps:
+      - run: echo "Hello world !"
+workflows:
+  # We perform some builds
+  build:
+    jobs:
+      - build_go
+      - build_cpp
+      - build_python
+      - build_node
+  # We generate some output checks
+  outputs_check:
+    jobs:
+      - output_check
+      requires:
+        - build # Let's test this
+        # - build_go
+        # - build_cpp
+        # - build_python
+        # - build_node
+  human_validation:
+    type: approval
+    requires:
+        - outputs_check
+  final_step:
+    jobs:
+      - final:
+    requires:
+      - human_validation
