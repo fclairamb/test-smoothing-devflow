@@ -92,7 +92,7 @@ workflows:
             - outputs_check
       - final2:
           requires:
-            - human_validation
+            - human_validation2
   build2:
     jobs:
       - human_validation2:
