@@ -72,11 +72,10 @@ workflows:
     jobs:
       - output_check
       requires:
-        - build # Let's test this
-        # - build_go
-        # - build_cpp
-        # - build_python
-        # - build_node
+        - build_go
+        - build_cpp
+        - build_python
+        - build_node
   human_validation:
     type: approval
     requires:
