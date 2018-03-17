@@ -90,7 +90,7 @@ workflows:
           type: approval
           requires:
             - outputs_check
-      - final2:
+      - final:
           requires:
             - human_validation2
   build2:
