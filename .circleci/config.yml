@@ -59,16 +59,11 @@ jobs:
             at: /workspace
         - run: .circleci/outputs_check.sh
   # final step
-  final1:
+  final:
     docker:
       - image: alpine
     steps:
       - run: echo "Hello world 1 !"
-  final2:
-    docker:
-      - image: alpine
-    steps:
-      - run: echo "Hello world 2 !"
 workflows:
   version: 2
   # We perform some builds
@@ -84,20 +79,13 @@ workflows:
             - build_cpp
             - build_python
             - build_node
-      - final1:
+      - final:
           requires:
             - outputs_check
-      - human_validation2:
-          type: approval
-          requires:
-            - outputs_check
-      - final2:
-          requires:
-            - human_validation2
   build2:
     jobs:
-      - human_validation2:
+      - human_validation:
           type: approval
-      - final2:
+      - final:
           requires:
-            - human_validation2
+            - human_validation
