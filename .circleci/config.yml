@@ -69,6 +69,11 @@ jobs:
           at: /workspace
       - store_artifacts:
           path: /workspace/results
+  hello:
+    docker:
+      - image: alpine
+    steps:
+      - run: echo "Hello !"
 workflows:
   version: 2
   # We perform some builds
@@ -87,10 +92,21 @@ workflows:
       - final:
           requires:
             - outputs_check
-  build2:
+  #build2:
+  #  jobs:
+  #    - human_validation:
+  #        type: approval
+  #    - final:
+  #        requires:
+  #          - human_validation
+  scheduled: 
+    triggers:
+      - schedule:
+          cron: "* * * * *"
+          filters:
+            branches:
+              only:
+                - master
+                - beta
     jobs:
-      - human_validation:
-          type: approval
-      - final:
-          requires:
-            - human_validation
+      - hello
