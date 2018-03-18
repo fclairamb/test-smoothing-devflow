@@ -84,13 +84,9 @@ workflows:
             - build_cpp
             - build_python
             - build_node
-      - human_validation:
-          type: approval
-          requires:
-            - outputs_check
       - final1:
           requires:
-            - human_validation
+            - outputs_check
       - human_validation2:
           type: approval
           requires:
