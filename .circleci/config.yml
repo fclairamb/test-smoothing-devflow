@@ -108,4 +108,13 @@ workflows:
               only:
                 - develop
     jobs:
-      - hello
+      - build_go
+      - build_cpp
+      - build_python
+      - build_node
+      - outputs_check:
+          requires:
+            - build_go
+            - build_cpp
+            - build_python
+            - build_node
