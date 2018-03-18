@@ -102,6 +102,6 @@ workflows:
     jobs:
       - human_validation2:
           type: approval
-      - final:
+      - final2:
           requires:
             - human_validation2
