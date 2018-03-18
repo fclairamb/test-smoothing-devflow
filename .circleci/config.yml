@@ -64,6 +64,10 @@ jobs:
       - image: alpine
     steps:
       - run: echo "Hello world 1 !"
+      - attach_workspace:
+          at: /workspace
+      - store_artifacts:
+          path: /workspace/results
 workflows:
   version: 2
   # We perform some builds
