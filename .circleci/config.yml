@@ -64,6 +64,7 @@ jobs:
       - image: alpine
     steps:
       - run: echo "Hello world 1 !"
+      - run: apk update && apk add ca-certificates
       - attach_workspace:
           at: /workspace
       - store_artifacts:
