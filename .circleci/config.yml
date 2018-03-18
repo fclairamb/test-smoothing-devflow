@@ -58,11 +58,6 @@ jobs:
         - attach_workspace:
             at: /workspace
         - run: .circleci/outputs_check.sh
-  store_artifacts:
-    steps:
-      - store_artifacts:
-          path: /workspace/results
-          destination: results
   # final step
   final1:
     docker:
@@ -89,9 +84,6 @@ workflows:
             - build_cpp
             - build_python
             - build_node
-      - store_artifacts:
-          requires:
-            - outputs_check
       - human_validation:
           type: approval
           requires:
@@ -110,6 +102,6 @@ workflows:
     jobs:
       - human_validation2:
           type: approval
-      - final1:
+      - final2:
           requires:
             - human_validation2
