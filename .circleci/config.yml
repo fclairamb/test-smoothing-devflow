@@ -95,13 +95,13 @@ workflows:
           type: approval
           requires:
             - outputs_check
-      - final2:
+      - final2:
           requires:
             - human_validation2
   build2:
     jobs:
       - human_validation2:
           type: approval
-      - final2:
+      - final:
           requires:
             - human_validation2
