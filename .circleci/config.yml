@@ -92,17 +92,10 @@ workflows:
       - final:
           requires:
             - outputs_check
-  #build2:
-  #  jobs:
-  #    - human_validation:
-  #        type: approval
-  #    - final:
-  #        requires:
-  #          - human_validation
   scheduled: 
     triggers:
       - schedule:
-          cron: "* * * * *"
+          cron: "0 0 1 * *"
           filters:
             branches:
               only:
